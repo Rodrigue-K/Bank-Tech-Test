@@ -13,6 +13,11 @@ class Account
     @balance += amount
   end
 
+  def withdraw(amount)
+    @transactions.push(amount)
+    @balance -= amount
+  end
+
 
 
 

@@ -31,5 +31,20 @@ end
       expect(account.transactions).to include(100)
     end
   end 
-end
+  
+  context "User wants to withdraw from account" do 
+    describe '#withdraw' do 
+      it 'Deducts amount from balance' do
+      account.deposit(200) 
+      account.withdraw(100)
+      expect(account.balance).to eq(100)
+    end
+      it 'Deduction to transactions' do 
+      account.deposit(200)
+      account.withdraw(100)
+      expect(account.transactions).to include(100)
+      end
+    end
+  end
+end 
 end
