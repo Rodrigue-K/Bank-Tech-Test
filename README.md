@@ -82,7 +82,7 @@ As a User so that I can review my spending.
 I would like to be able to view an account statement.
 with dates of transaction, balance after transaction, type of transaction.
 
-![alt text](https://cdn1.imggmi.com/uploads/2019/2/14/4e6146c90c844fa4b494b8e84158c065-full.png)
+![alt text](https://i.imgur.com/cWywyiH.png)
 
 
 Refactoring 
