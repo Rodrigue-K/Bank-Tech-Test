@@ -1,11 +1,14 @@
 require 'transaction'
+require 'timecop'
 
 describe Transaction do
   let(:transaction) { Transaction.new('credit', 100, 100) }
   describe '#initialize' do 
     it 'contains a date' do 
-      expect(transaction.date).to eq('13/02/2019')
+      Timecop.freeze do 
+      expect(transaction.date).to eq(Time.now.strftime("%d/%m/%Y"))
     end
+   end
     it 'contains a type' do 
       debit_transaction = Transaction.new('debit', 100, -100)
       credit_transaction = Transaction.new('credit', 300, 200)

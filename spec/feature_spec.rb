@@ -1,11 +1,12 @@
 require 'account'
+require 'timecop'
 
-describe 'User stories' do 
+describe 'Account User stories' do 
   let(:account) { Account.new }
-  it 'Records account balance' do
+  it 'User can see balance' do
     expect(account.balance).to eq(0)
   end
-  it 'Records account transactions' do 
+  it 'User can see transactions' do 
     expect(account.transactions).to eq([])
   end
   it 'User can make a deposit' do 
@@ -17,16 +18,16 @@ describe 'User stories' do
     account.withdraw(100) 
     expect(account.balance).to eq(100)
   end
-  it 'User can see a statement of account' do
-    account.deposit(300)
-    account.deposit(700)
-    account.withdraw(100)
-    expect(account.statement).to contain('||date||credit||debit|balance||')
-    expect(account.statement).to contain('||13/02/18||300||   ||300||')
-    expect(account.statement).to contain('||13/02/18||700||   ||900||')
-    expect(account.statement).to contain('||13/02/18||   ||100||900||')
-
-
-
-  end
+  # it 'User can see a statement of account' do
+  #   Timecop.freeze do
+  #   account.deposit(300)
+  #   account.deposit(700)
+  #   account.withdraw(100)
+  #   expect(account.print_statement).to eq('"   date    ||  credit  ||  debit  ||  balance"')
+  #   expect(account.print_statement).to eq("-----------------------------------------------")
+  #   expect(account.print_statement).to eq("  14/02/2019||  300     ||         ||  100   ")
+  #   expect(account.print_statement).to eq("  14/02/2019||  700     ||   700   ||  100   ")
+  #   expect(account.print_statement).to eq("  14/02/2019||          ||   100   ||  100   ")
+  #  end 
+  # end
 end

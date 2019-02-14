@@ -3,6 +3,7 @@ require 'account'
 describe Account do 
   let(:account) { described_class.new }
   let(:transaction) { double('transaction', :type => "debit", :amount => 100 )}
+  let(:statement) { double :statement }
   
   context 'User creates an account and wants to see balance' do
     describe '#balance' do 
@@ -50,11 +51,18 @@ describe Account do
   context 'User wants to see recent transactions' do
     describe '#statement' do 
       it 'prints out a statement with transactions' do
-        allow(account).to receive(:statement).and_return([transaction])
-        expect(account.statement).to eq('   date   ||  credit  ||  debit  ||  balance  ')
-        expect(account.statement).to eq('13/02/2019||   100    ||         ||  100')
+        allow(account).to receive(:print_statement).and_return(
+          "   date    ||  credit  ||  debit  ||  balance 
+          -----------------------------------------------
+            13/02/2019||  100     ||         ||  100   "
+        )
+        expect(account.print_statement).to eq(
+          "   date    ||  credit  ||  debit  ||  balance 
+          -----------------------------------------------
+            13/02/2019||  100     ||         ||  100   "
+            )
+          end
+        end
       end
-    end
-  end
 end
     

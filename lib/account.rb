@@ -1,4 +1,6 @@
 require './lib/transaction'
+require './lib/statement'
+
 
 class Account 
 
@@ -19,16 +21,14 @@ class Account
     @transactions.push(Transaction.new('debit', amount, @balance))
   end
 
-  def statement
-    puts '   date    ||  credit  ||  debit  ||  balance  '
-    puts '-----------------------------------------------'
+  def print_statement
     @transactions.each do |x|
       if x.type == "credit"
-        puts " #{x.date}||  #{x.amount}     ||         ||  #{x.post_transaction_balance}  "
+        puts  "#{x.date}||  #{x.amount}    ||         ||  #{x.post_transaction_balance}"
       else
-        puts " #{x.date}||          ||   #{x.amount}   ||  #{x.post_transaction_balance}  "
+        puts  "  #{x.date}||         ||   #{x.amount}   ||  #{x.post_transaction_balance}  "
       end
     end
   end
-
+    
 end
