@@ -98,15 +98,6 @@ Refactoring
 
 
 
-Features to consider
------------
-
-*Error raising - low balance
-*Overdraft 
-*Transfer
-*Phone alerts
-
-
 
 
 
