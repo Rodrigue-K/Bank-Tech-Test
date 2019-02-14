@@ -21,7 +21,12 @@ describe 'User stories' do
     account.deposit(300)
     account.deposit(700)
     account.withdraw(100)
-    expect(account.statement).to include('||date||credit||debit|balance||')
-    expect(account.statement).to include('||14/02/18||   ||100||900||')
+    expect(account.statement).to contain('||date||credit||debit|balance||')
+    expect(account.statement).to contain('||13/02/18||300||   ||300||')
+    expect(account.statement).to contain('||13/02/18||700||   ||900||')
+    expect(account.statement).to contain('||13/02/18||   ||100||900||')
+
+
+
   end
 end

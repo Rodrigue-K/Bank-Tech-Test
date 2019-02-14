@@ -1,9 +1,8 @@
 require 'account'
-require 'transaction'
 
 describe Account do 
   let(:account) { described_class.new }
-  let(:transaction) { double('transaction', :type => "credit", :amount => 100 )}
+  let(:transaction) { double('transaction', :type => "debit", :amount => 100 )}
   
   context 'User creates an account and wants to see balance' do
     describe '#balance' do 
@@ -18,18 +17,20 @@ describe Account do
       it 'Returns empty array' do
         expect(account.transactions).to eq([])
       end
+      it 'Returns array with transactions' do 
+        allow(account).to receive(:transactions).and_return([transaction])
+        expect(account.transactions).to eq([transaction])
+      end
     end
   end
   
   context 'User wants to deposit into account' do 
     describe '#deposit' do 
       it 'Adds amount to balance' do 
-        account.deposit(100)
-        expect(account.balance).to eq(100)
+        expect{account.deposit(1350)}.to change{account.balance}.by(1350)
       end
       it 'Adds deposit to transactions' do 
-        account.deposit(100)
-        expect(account.transactions.count).to eq(1)
+        expect{account.deposit(100)}.to change{account.transactions.count}.from(0).to(1)
       end
     end 
   end
@@ -38,13 +39,10 @@ describe Account do
     describe '#withdraw' do 
       it 'Deducts amount from balance' do
         account.deposit(200) 
-        account.withdraw(100)
-        expect(account.balance).to eq(100)
+        expect{account.withdraw(100)}.to change{account.balance}.from(200).to(100)
       end
-      it 'Adds deduction to transactions' do 
-        account.deposit(200)
-        account.withdraw(100)
-        expect(account.transactions.count).to eq(2)
+      it 'Adds withdrawals to transactions' do 
+        expect{account.withdraw(100)}.to change{account.transactions.count}.from(0).to(1)
       end
     end
   end 
@@ -52,9 +50,9 @@ describe Account do
   context 'User wants to see recent transactions' do
     describe '#statement' do 
       it 'prints out a statement with transactions' do
-        allow(account).to receive(:transactions).and_return([transaction])
-        expect(account.statement).to include('||date||credit||debit|balance||')
-        expect(account.statement).to include('||13/02/2019||100||  |100||')
+        allow(account).to receive(:statement).and_return([transaction])
+        expect(account.statement).to eq('   date   ||  credit  ||  debit  ||  balance  ')
+        expect(account.statement).to eq('13/02/2019||   100    ||         ||  100')
       end
     end
   end
